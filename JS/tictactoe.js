@@ -14,14 +14,16 @@ function placeXOrO(squareNumber) {
         //This condition checks who's turn it is.
         if (activePlayer === "X") {
             //If activePlaye is equal to "X", the x.png is placed in HTML.
-            select.style.backgroundImage = 'url("Images/x.png")';
+            select.style.backgroundImage = 'url("Images/dog.jpg")';
             //Active player may only be 'X' or 'O' so, if not 'X' it must be 'O'
         } else {
             //If activePlayer is equal to 'O', the o.png is placed in HTML.
-            select.style.backgroundImage = 'url("Images/o.png")';
+            select.style.backgroundImage = 'url("Images/cat.jpg")';
         }
         //squareNumber and activePlayer are concatenated together and added to array.
         selectedSquares.push(squareNumber + activePlayer);
+        //This calls a function to check for any win conditions.
+        checkWinConditions();
         //This condition is for changing the active player.
         if (activePlayer === 'X') {
             //If active player is 'X' change it to 'O'.
@@ -33,14 +35,14 @@ function placeXOrO(squareNumber) {
         }
 
         //This function plays placement sound.
-        audio('./Media/place.mp3');
+        audio('./Media/1pew.mp3');
         //This condition checks to see if it is computers turn.
         if(activePlayer === 'O') {
             //This function disables clicking for computers choice.
             disableClick();
             //This function waits 1 second before placing the image
             //and enabling click.
-            setTimeout(function() { computersTurn(); }, 1000);
+            setTimeout(function () { computersTurn(); }, 1000);
         }
         //Returning true is needed for our computersTurn() function to work.
         return true;
@@ -60,7 +62,7 @@ function placeXOrO(squareNumber) {
             //If the random number evaluates rwturns true, the square hasn't been.
             if (placeXOrO(pickASquare)) {
                 //This line calls the function.
-                placeXOrO(pickASquare) ;
+                placeXOrO(pickASquare);
                 //This changes our boolean and ends the loop.
                 success = true;
             } ;
@@ -106,8 +108,8 @@ function checkWinConditions() {
     // This condition checks for tie. If none of the above conditions register
     //and 9 squares are selected, the code executes.
     else if (selectedSquares.length >= 9) {
-        //This function plays the tie game sound.
-        audio('./Media/tie.mp3');
+        //This function plays the hop game sound.
+        audio('./Media/1hop.mp3');
         // This function sets a .3 second timer before the restGame is called.
         setTimeout(function () { resetGame(); }, 1000);
     }
@@ -135,22 +137,6 @@ function disableClick() {
 //placement sound('./Media/place.mp3')
 function audio(audioURL) {
     //We create a new audio object and we pass the path as a paarameeter.
-    let audio = new Audio(audioURL);
-    //Play method plays our audio sound.
-    audio.play();
-}
-
-//This function makes our body element temporarily unclickable.
-function disableClick() {
-    //This makes our body unclickable.
-    body.style.pointerEvents = 'none';
-    //This makes our body clickable again after 1 second.
-    setTimeout(function() {body.style.pointerEvents = 'auto';}, 1000);
-}
-//This function takes a string parameter of the path you set earlier for
-//placement sound ('./Media/place.mp3')
-function audio(audioURL) {
-    //We create a new audio object and we pass the path as a parameter.
     let audio = new Audio(audioURL);
     //Play method plays our audio sound.
     audio.play();
@@ -222,7 +208,7 @@ function drawWinLine(coordX1, coordY1, coordX2, coordY2) {
     //This line disallows clicking while the win sound is playing
     disableClick();
     //This line plays the win sounds.
-    audio('./Media/winGame.mp3');
+    audio('./Media/1laugh.mp3');
     //This line calls our man animation loop.
     animateLineDrawing();
     //This line waits 1 second.
